@@ -1,0 +1,25 @@
+{
+  "name": "rysz-eriksson-RSSPL2020Q1",
+  "version": "1.0.0",
+  "description": "Private repository for @rysz-eriksson",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rolling-scopes-school/rysz-eriksson-RSSPL2020Q1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rolling-scopes-school/rysz-eriksson-RSSPL2020Q1/issues"
+  },
+  "homepage": "https://github.com/rolling-scopes-school/rysz-eriksson-RSSPL2020Q1#readme",
+  "dependencies": {
+    "eslint": "^7.0.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2"
+  }
+}
