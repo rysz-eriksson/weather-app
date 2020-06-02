@@ -1,9 +1,9 @@
 import apiKeys from './apiKeys';
 
-const getPosition = async () => {
-  const { latitude, longitude } = await new Promise((resolve, reject) => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      resolve(position.coords);
+const getCoords = async () => {
+  const position = await new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition((pos) => {
+      resolve(pos.coords);
     },
     (error) => {
       reject(error);
@@ -11,6 +11,11 @@ const getPosition = async () => {
   }).catch((err) => {
     console.log(err);
   });
+  return position;
+};
+
+const getCity = async () => {
+  const { latitude, longitude } = await getCoords();
   const cityUrl = `https://api.opencagedata.com/geocode/v1/json?q=${latitude.toFixed(7)},${longitude.toFixed(7)}&key=${apiKeys.ocdKey}`;
   const locDetails = await fetch(cityUrl)
     .then((res) => res.json())
@@ -23,4 +28,4 @@ const getPosition = async () => {
   return locDetails;
 };
 
-export { getPosition as default };
+export { getCoords, getCity };

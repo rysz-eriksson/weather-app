@@ -1,12 +1,6 @@
 import renderCurrentWeather from './renderCurrentWeather';
-import { getFutureForecast } from './getWeatherData';
+import getWeatherData from './getWeatherData';
+import { getCoords, getCity } from './position';
 import './styles/main.css';
 
 renderCurrentWeather();
-
-const renderFutureWeather = async () => {
-  const weatherData = await getFutureForecast();
-  console.log(weatherData);
-};
-
-renderFutureWeather();
