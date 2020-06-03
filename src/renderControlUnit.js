@@ -6,6 +6,7 @@
 // search input
 
 import renderCurrentWeather from './renderWeatherUnit';
+import renderImage from './renderPicture';
 
 let language = 'en';
 let tempUnit = 'celcius';
@@ -17,7 +18,7 @@ class Reload {
   }
 
   onClickAction() {
-    return this
+    renderImage();
   }
 }
 

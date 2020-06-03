@@ -2,18 +2,19 @@
 import moment from 'moment';
 import { getCity } from './position';
 import getWeatherData from './getWeatherData';
-import { tempUnit } from './controlUnit';
+import { tempUnit } from './renderControlUnit';
+
 
 const celToFarConverter = (celcius) => celcius * 1.8 + 32;
 
-const renderCurrentData = (current, city, country) => {
+const renderTimeandLocation = (city, country) => {
   const now = moment();
-  const timeandLocation = document.createElement('section');
-  timeandLocation.classList.add('time-n-loc');
-
   document.querySelector('#location').textContent = `${city}, ${country}`;
   document.querySelector('#time').textContent = now.format('ddd DD MMMM HH:mm');
+}
 
+const renderCurrentData = (current) => {
+  const now = moment();
   document.querySelector('#currentTemp').textContent = tempUnit === 'celcius' ? `${parseInt(current.temp, 10)}°C` : `${parseInt(celToFarConverter(current.temp), 10)}°F`;
   const iconSuffix = now.unix() > current.sunrise && now.unix() < current.sunset ? 'd' : 'n';
   document.querySelector('.temp-widget>i').classList.add(`owf-${current.weather[0].id}-${iconSuffix}`);
@@ -37,6 +38,9 @@ const renderFutureForecast = (data) => {
 export default async () => {
   const { city, country } = await getCity();
   const { current, daily } = await getWeatherData();
-  renderCurrentData(current, city, country);
+  renderTimeandLocation(city, country);
+  renderCurrentData(current);
   renderFutureForecast(daily);
 };
+
+export { renderCurrentData, renderFutureForecast, renderTimeandLocation }

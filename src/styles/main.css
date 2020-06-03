@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+/* html { 
+    background: url(https://images.unsplash.com/photo-1566010503302-2564ae0d47b6?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEzOTY5M30) no-repeat center center fixed; 
+  } */
+
 h1 {
     color: red;
 }
