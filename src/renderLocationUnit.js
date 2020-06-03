@@ -1,18 +1,20 @@
+/* eslint-disable no-undef */
 import apiKeys from './apiKeys';
 import { getCoords } from './position';
+
+const dmsConvert = (anglePos) => {
+  const degrees = Math.floor(anglePos);
+  const minutes = parseInt((anglePos - degrees) * 60, 10);
+  return `${degrees}° ${minutes}'`;
+};
 
 const renderPos = async () => {
   const coords = [];
   const { latitude, longitude } = await getCoords();
-  coords.push(longitude)
-  coords.push(latitude)
-
-  const mapContainer = document.createElement('div');
-  mapContainer.setAttribute('id', 'map');
-  document.querySelector('body').appendChild(mapContainer);
-  const latEl = document.createElement('p')
-  latEl.textContent = `Latitude`
-
+  coords.push(longitude);
+  coords.push(latitude);
+  document.querySelector('#latitude').textContent = `Latitude: ${dmsConvert(latitude)}`;
+  document.querySelector('#longitude').textContent = `Latitude: ${dmsConvert(longitude)}`;
 
   const map = new mapboxgl.Map({
     accessToken: apiKeys.mapBoxKey,
@@ -21,8 +23,6 @@ const renderPos = async () => {
     center: [...coords],
     zoom: 10,
   });
-
-console.log(coords)
 };
 
 
