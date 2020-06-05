@@ -8,9 +8,9 @@ const dmsConvert = (anglePos) => {
   return `${degrees}° ${minutes}'`;
 };
 
-const renderPos = async () => {
+const renderPos = async (city) => {
   const coords = [];
-  const { latitude, longitude } = await getCoords();
+  const { latitude, longitude } = await getCoords(city);
   coords.push(longitude);
   coords.push(latitude);
   document.querySelector('#latitude').textContent = `Latitude: ${dmsConvert(latitude)}`;

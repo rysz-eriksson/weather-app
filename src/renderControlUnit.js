@@ -1,8 +1,8 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable max-classes-per-file */
 
-import { getSearchedCity } from './position';
 import renderCurrentWeather from './renderWeatherUnit';
+import { renderPos } from './renderLocationUnit';
 import renderImage from './renderPicture';
 
 
@@ -73,7 +73,9 @@ const searchSubmit = document.createElement('button')
 searchSubmit.textContent = 'search'
 searchSubmit.addEventListener('click', () => {
   const text = document.querySelector('#searchInput').value
-  getSearchedCity(text)
+  renderCurrentWeather(text)
+  renderImage(text)
+  renderPos(text)
 })
 document.querySelector('#searchPanel').appendChild(searchSubmit)
 

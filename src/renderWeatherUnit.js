@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import moment from 'moment';
-import { getCity } from './position';
+import { getCity, getCoords } from './position';
 import getWeatherData from './getWeatherData';
 import { tempUnit } from './renderControlUnit';
 
@@ -35,9 +35,9 @@ const renderFutureForecast = (data) => {
   });
 };
 
-export default async () => {
-  const { city, country } = await getCity();
-  const { current, daily } = await getWeatherData();
+export default async (search) => {
+  const { city, country } = search ? await getCoords(search) : await getCity();
+  const { current, daily } = await getWeatherData(search);
   renderTimeandLocation(city, country);
   renderCurrentData(current);
   renderFutureForecast(daily);

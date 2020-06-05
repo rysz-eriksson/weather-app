@@ -13,8 +13,8 @@ const getSeason = (month) => {
   return 'winter';
 };
 
-export default async () => {
-  const { current } = await getWeatherData();
+export default async (city) => {
+  const { current } = await getWeatherData(city);
   const isNight = !(moment().unix() > current.sunrise && moment().unix() < current.sunset);
   const season = getSeason(moment().month());
   const query = isNight ? `night,${current.weather[0].main}` : `${season},${current.weather[0].main}`;

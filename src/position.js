@@ -1,17 +1,38 @@
 import apiKeys from './apiKeys';
 
-
-const getCoords = async () => {
-  const position = await new Promise((resolve, reject) => {
-    navigator.geolocation.getCurrentPosition((pos) => {
-      resolve(pos.coords);
-    },
-    (error) => {
-      reject(error);
+const getSearchedCity = async (query) => {
+  const url = `https://api.opencagedata.com/geocode/v1/json?q=${query}&key=${apiKeys.ocdKey}`
+  const value = await fetch(url)
+    .then((res) => res.json())
+    .then((data) => ({
+      city: data.results[0].formatted.split(',')[0],
+      country: data.results[0].components.country,
+      latitude: data.results[0].geometry.lat,
+      longitude: data.results[0].geometry.lng,
+    }))
+    .catch((err) => {
+      console.log('Error', err);
     });
-  }).catch((err) => {
-    console.log(err);
-  });
+  return value;
+};
+
+const getCoords = async (search) => {
+  let position = {};
+  if (search) {
+    position = await getSearchedCity(search);
+  } else {
+    position = await new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition((pos) => {
+        resolve(pos.coords);
+      },
+      (error) => {
+        reject(error);
+      });
+    }).catch((err) => {
+      console.log(err);
+    });
+  }
+  
   return position;
 };
 
@@ -29,16 +50,7 @@ const getCity = async () => {
   return locDetails;
 };
 
-const getSearchedCity = async (query) => {
-  const url = `https://api.opencagedata.com/geocode/v1/json?q=${query}&key=${apiKeys.ocdKey}`
-  const value = await fetch(url)
-    .then((res) => res.json())
-    .then((data) => data)
-    .catch((err) => {
-      console.log('Error', err);
-    });
-    console.log(value);
-}
+
 
 
 export { getCoords, getCity, getSearchedCity };
