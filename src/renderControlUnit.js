@@ -1,15 +1,16 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable max-classes-per-file */
-// refresh button
-// language button
-// temp button
-// search input
 
+import { getSearchedCity } from './position';
 import renderCurrentWeather from './renderWeatherUnit';
 import renderImage from './renderPicture';
 
+
+// variables to store lang and temp unit choice 
 let language = 'en';
 let tempUnit = 'celcius';
+
+// classes for buttons
 
 class Reload {
   constructor() {
@@ -57,8 +58,23 @@ const renderControlUnit = () => {
     buttonEl.setAttribute('id', item.id);
     buttonEl.textContent = item.content;
     buttonEl.addEventListener('click', item.onClickAction);
-    document.querySelector('header').appendChild(buttonEl);
+    document.querySelector('#controlPanel').appendChild(buttonEl);
   });
 };
+
+// defining elements for search panel
+
+const searchInput = document.createElement('input')
+searchInput.setAttribute('id', 'searchInput')
+searchInput.setAttribute('placeholder', 'search City')
+document.querySelector('#searchPanel').appendChild(searchInput)
+
+const searchSubmit = document.createElement('button')
+searchSubmit.textContent = 'search'
+searchSubmit.addEventListener('click', () => {
+  const text = document.querySelector('#searchInput').value
+  getSearchedCity(text)
+})
+document.querySelector('#searchPanel').appendChild(searchSubmit)
 
 export { renderControlUnit, tempUnit }

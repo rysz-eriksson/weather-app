@@ -7,6 +7,12 @@
 
 const header = document.createElement('header');
 document.querySelector('body').appendChild(header);
+const controlButtons = document.createElement('div')
+controlButtons.setAttribute('id', 'controlPanel')
+header.appendChild(controlButtons);
+const search = document.createElement('div')
+search.setAttribute('id', 'searchPanel')
+header.appendChild(search);
 
 // section for current weather display
 

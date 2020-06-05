@@ -1,5 +1,6 @@
 import apiKeys from './apiKeys';
 
+
 const getCoords = async () => {
   const position = await new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition((pos) => {
@@ -28,4 +29,16 @@ const getCity = async () => {
   return locDetails;
 };
 
-export { getCoords, getCity };
+const getSearchedCity = async (query) => {
+  const url = `https://api.opencagedata.com/geocode/v1/json?q=${query}&key=${apiKeys.ocdKey}`
+  const value = await fetch(url)
+    .then((res) => res.json())
+    .then((data) => data)
+    .catch((err) => {
+      console.log('Error', err);
+    });
+    console.log(value);
+}
+
+
+export { getCoords, getCity, getSearchedCity };
