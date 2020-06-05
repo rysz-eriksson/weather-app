@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable import/no-cycle */
 /* eslint-disable max-classes-per-file */
 
@@ -14,7 +15,7 @@ let tempUnit = 'celcius';
 
 class Reload {
   constructor() {
-    this.id = 'reload'
+    this.id = 'reload';
     this.content = 'RELOAD';
   }
 
@@ -26,7 +27,7 @@ class Reload {
 class Language {
   constructor(id) {
     this.id = id;
-    this.content = this.id.toUpperCase()
+    this.content = this.id.toUpperCase();
   }
 
   onClickAction() {
@@ -50,7 +51,7 @@ class Temperature {
   }
 }
 
-const buttonsArray = [new Reload(), new Language('en'), new Language('pl'), new Temperature('celcius', '°C'), new Temperature('farenheit', '°F')]
+const buttonsArray = [new Reload(), new Language('en'), new Language('pl'), new Temperature('celcius', '°C'), new Temperature('farenheit', '°F')];
 
 const renderControlUnit = () => {
   buttonsArray.map((item) => {
@@ -64,19 +65,43 @@ const renderControlUnit = () => {
 
 // defining elements for search panel
 
-const searchInput = document.createElement('input')
-searchInput.setAttribute('id', 'searchInput')
-searchInput.setAttribute('placeholder', 'search City')
-document.querySelector('#searchPanel').appendChild(searchInput)
+// search input
 
-const searchSubmit = document.createElement('button')
-searchSubmit.textContent = 'search'
+const searchInput = document.createElement('input');
+searchInput.setAttribute('id', 'searchInput');
+searchInput.setAttribute('placeholder', 'search City');
+document.querySelector('#searchPanel').appendChild(searchInput);
+
+const searchSubmit = document.createElement('button');
+searchSubmit.textContent = 'search';
 searchSubmit.addEventListener('click', () => {
-  const text = document.querySelector('#searchInput').value
-  renderCurrentWeather(text)
-  renderImage(text)
-  renderPos(text)
-})
-document.querySelector('#searchPanel').appendChild(searchSubmit)
+  const text = document.querySelector('#searchInput').value;
+  renderCurrentWeather(text);
+  renderImage(text);
+  renderPos(text);
+});
+document.querySelector('#searchPanel').appendChild(searchSubmit);
 
-export { renderControlUnit, tempUnit }
+// voice search
+
+window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+const recognition = new SpeechRecognition();
+
+recognition.addEventListener('result', (e) => {
+  console.log(e);
+  const { transcript } = e.results[0][0];
+  document.querySelector('#searchInput').value = transcript;
+  renderCurrentWeather(transcript);
+  renderImage(transcript);
+  renderPos(transcript);
+});
+
+const voiceSearch = document.createElement('button');
+voiceSearch.textContent = 'Voice';
+voiceSearch.addEventListener('click', () => {
+  recognition.start();
+});
+document.querySelector('#searchPanel').appendChild(voiceSearch);
+
+export { renderControlUnit, tempUnit };
