@@ -9,6 +9,11 @@ import getWeatherData from './getWeatherData';
 import { getCoords, getCity } from './position';
 import './styles/main.css';
 
+// const language = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en';
+// const unit = JSON.parse(localStorage.getItem('unit')) ? JSON.parse(localStorage.getItem('unit')) : 'celcius';
+
+// console.log(language, unit)
+
 renderControlUnit();
 renderCurrentWeather();
 renderPos();

@@ -1,7 +1,8 @@
 import apiKeys from './apiKeys';
 
 const getSearchedCity = async (query) => {
-  const url = `https://api.opencagedata.com/geocode/v1/json?q=${query}&key=${apiKeys.ocdKey}`
+  const lang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en';
+  const url = `https://api.opencagedata.com/geocode/v1/json?q=${query}&language=${lang}&key=${apiKeys.ocdKey}`
   const value = await fetch(url)
     .then((res) => res.json())
     .then((data) => ({
@@ -37,8 +38,9 @@ const getCoords = async (search) => {
 };
 
 const getCity = async () => {
+  const lang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en';
   const { latitude, longitude } = await getCoords();
-  const cityUrl = `https://api.opencagedata.com/geocode/v1/json?q=${latitude.toFixed(7)},${longitude.toFixed(7)}&key=${apiKeys.ocdKey}`;
+  const cityUrl = `https://api.opencagedata.com/geocode/v1/json?q=${latitude.toFixed(7)},${longitude.toFixed(7)}&language=${lang}&key=${apiKeys.ocdKey}`;
   const locDetails = await fetch(cityUrl)
     .then((res) => res.json())
     .then((data) => {

@@ -8,13 +8,20 @@ const dmsConvert = (anglePos) => {
   return `${degrees}° ${minutes}'`;
 };
 
+const renderCoordsText = async () => {
+  const { latitude, longitude } = await getCoords();
+  const lang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en';
+  document.querySelector('#latitude').textContent = `${lang === 'en' ? 'Latitude' : 'Szerokość'}: ${dmsConvert(latitude)}`;
+  document.querySelector('#longitude').textContent = `${lang === 'en' ? 'Longitude' : 'Długość'}: ${dmsConvert(longitude)}`;
+
+}
+
 const renderPos = async (city) => {
   const coords = [];
   const { latitude, longitude } = await getCoords(city);
   coords.push(longitude);
   coords.push(latitude);
-  document.querySelector('#latitude').textContent = `Latitude: ${dmsConvert(latitude)}`;
-  document.querySelector('#longitude').textContent = `Latitude: ${dmsConvert(longitude)}`;
+  renderCoordsText();
 
   const map = new mapboxgl.Map({
     accessToken: apiKeys.mapBoxKey,
@@ -26,4 +33,4 @@ const renderPos = async (city) => {
 };
 
 
-export { renderPos };
+export { renderPos, renderCoordsText };

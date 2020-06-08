@@ -3,13 +3,8 @@
 /* eslint-disable max-classes-per-file */
 
 import renderCurrentWeather from './renderWeatherUnit';
-import { renderPos } from './renderLocationUnit';
+import { renderPos, renderCoordsText } from './renderLocationUnit';
 import renderImage from './renderPicture';
-
-
-// variables to store lang and temp unit choice 
-let language = 'en';
-let tempUnit = 'celcius';
 
 // classes for buttons
 
@@ -31,9 +26,9 @@ class Language {
   }
 
   onClickAction() {
-    if (language !== this.id) {
-      language = this.id;
-    }
+    localStorage.setItem('lang', this.id);
+    renderCurrentWeather();
+    renderCoordsText();
   }
 }
 
@@ -44,10 +39,8 @@ class Temperature {
   }
 
   onClickAction() {
-    if (tempUnit !== this.id) {
-      tempUnit = this.id;
-      renderCurrentWeather();
-    }
+    localStorage.setItem('unit', this.id);
+    renderCurrentWeather();
   }
 }
 
@@ -100,8 +93,9 @@ recognition.addEventListener('result', (e) => {
 const voiceSearch = document.createElement('button');
 voiceSearch.textContent = 'Voice';
 voiceSearch.addEventListener('click', () => {
+  recognition.lang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en';
   recognition.start();
 });
 document.querySelector('#searchPanel').appendChild(voiceSearch);
 
-export { renderControlUnit, tempUnit };
+export { renderControlUnit };
