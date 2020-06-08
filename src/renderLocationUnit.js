@@ -8,17 +8,17 @@ const dmsConvert = (anglePos) => {
   return `${degrees}° ${minutes}'`;
 };
 
-const renderCoordsText = async () => {
-  const { latitude, longitude } = await getCoords();
+const renderCoordsText = () => {
+  const { latitude, longitude } = JSON.parse(localStorage.getItem('coords'));
   const lang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en';
   document.querySelector('#latitude').textContent = `${lang === 'en' ? 'Latitude' : 'Szerokość'}: ${dmsConvert(latitude)}`;
   document.querySelector('#longitude').textContent = `${lang === 'en' ? 'Longitude' : 'Długość'}: ${dmsConvert(longitude)}`;
 
 }
 
-const renderPos = async (city) => {
+const renderPos = () => {
   const coords = [];
-  const { latitude, longitude } = await getCoords(city);
+  const { latitude, longitude } = JSON.parse(localStorage.getItem('coords'));
   coords.push(longitude);
   coords.push(latitude);
   renderCoordsText();

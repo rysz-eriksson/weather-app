@@ -2,7 +2,7 @@ import { getCoords } from './position';
 import apiKeys from './apiKeys';
 
 const getWeatherData = async (city, lang) => {
-  const { latitude, longitude } = await getCoords(city);
+  const { latitude, longitude } = JSON.parse(localStorage.getItem('coords'));
   const oneCallUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=metric&lang=${lang}&
   exclude=minutely,hourly&appid=${apiKeys.owmKey}`;
   const weatherData = await fetch(oneCallUrl)

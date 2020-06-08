@@ -37,12 +37,12 @@ const getCoords = async (search) => {
     });
   }
   localStorage.setItem('coords', JSON.stringify(position));
-  return position;
+  // return position;
 };
 
 const getCity = async () => {
   const lang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en';
-  const { latitude, longitude } = await getCoords();
+  const { latitude, longitude } = JSON.parse(localStorage.getItem('coords'));
   const cityUrl = `https://api.opencagedata.com/geocode/v1/json?q=${latitude.toFixed(7)},${longitude.toFixed(7)}&language=${lang}&key=${apiKeys.ocdKey}`;
   const locDetails = await fetch(cityUrl)
     .then((res) => res.json())

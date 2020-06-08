@@ -38,7 +38,7 @@ const renderFutureForecast = (data, tempUnit, lang) => {
 export default async (search) => {
   const unit = localStorage.getItem('unit') ? localStorage.getItem('unit') : 'celcius';
   const lang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en';
-  const { city, country } = search ? await getCoords(search) : await getCity();
+  const { city, country } = await getCity();
   const { current, daily } = await getWeatherData(search, lang);
   renderTimeandLocation(city, country, lang);
   renderCurrentData(current, unit, lang);

@@ -9,15 +9,16 @@ import getWeatherData from './getWeatherData';
 import { getCoords, getCity } from './position';
 import './styles/main.css';
 
-// const language = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en';
-// const unit = JSON.parse(localStorage.getItem('unit')) ? JSON.parse(localStorage.getItem('unit')) : 'celcius';
+const renderApp = async () => {
 
-// console.log(language, unit)
-getCoords();
-renderControlUnit();
-renderSearchPanel();
-renderVoiceSearch();
-renderCurrentWeather();
-renderPos();
-renderImage();
+  await getCoords();
+  renderControlUnit();
+  renderSearchPanel();
+  renderVoiceSearch();
+  renderCurrentWeather();
+  renderPos();
+  renderImage();
+};
+renderApp();
+
 setInterval(renderCurrentWeather, 60000);

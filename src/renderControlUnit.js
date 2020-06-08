@@ -5,6 +5,7 @@
 import renderCurrentWeather from './renderWeatherUnit';
 import { renderPos, renderCoordsText } from './renderLocationUnit';
 import renderImage from './renderPicture';
+import { getCoords } from './position';
 
 // classes for buttons
 
@@ -61,6 +62,13 @@ const renderControlUnit = () => {
 
 // search input
 
+const reloadAfterChange = async (cityName) => {
+  await getCoords(cityName);
+  renderCurrentWeather();
+  renderImage();
+  renderPos();
+}
+
 const renderSearchPanel = () => {
   const lang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en';
   const searchInput = document.createElement('input');
@@ -73,9 +81,7 @@ const renderSearchPanel = () => {
   searchSubmit.textContent = `${lang === 'en' ? 'Search' : 'Szukaj'}`;
   searchSubmit.addEventListener('click', () => {
     const text = document.querySelector('#searchInput').value;
-    renderCurrentWeather(text);
-    renderImage(text);
-    renderPos(text);
+    reloadAfterChange(text);
   });
   document.querySelector('#searchPanel').appendChild(searchSubmit);
 };
@@ -84,9 +90,7 @@ const searchPanelLangChange = () => {
   const lang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en';
   document.querySelector('#searchInput').setAttribute('placeholder', `${lang === 'en' ? 'Search city' : 'Szukaj miasta'}`);
   document.querySelector('#searchButton').textContent = `${lang === 'en' ? 'Search' : 'Szukaj'}`;
-}
-
-
+};
 
 // voice search
 
@@ -99,9 +103,7 @@ const renderVoiceSearch = () => {
     console.log(e);
     const { transcript } = e.results[0][0];
     document.querySelector('#searchInput').value = transcript;
-    renderCurrentWeather(transcript);
-    renderImage(transcript);
-    renderPos(transcript);
+    reloadAfterChange(transcript);
   });
   const voiceSearch = document.createElement('button');
   voiceSearch.textContent = 'Voice';
