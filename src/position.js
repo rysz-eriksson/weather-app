@@ -29,11 +29,14 @@ const getCoords = async (search) => {
       (error) => {
         reject(error);
       });
-    }).catch((err) => {
+    }).then((data) => ({
+      latitude: data.latitude,
+      longitude: data.longitude,
+    })).catch((err) => {
       console.log(err);
     });
   }
-  
+  localStorage.setItem('coords', JSON.stringify(position));
   return position;
 };
 

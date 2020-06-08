@@ -13,7 +13,7 @@ import './styles/main.css';
 // const unit = JSON.parse(localStorage.getItem('unit')) ? JSON.parse(localStorage.getItem('unit')) : 'celcius';
 
 // console.log(language, unit)
-
+getCoords();
 renderControlUnit();
 renderSearchPanel();
 renderVoiceSearch();
