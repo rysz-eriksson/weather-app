@@ -27,12 +27,7 @@ export default async (city) => {
       console.log(err);
     });
   console.log(queryUrl);
-  const htmlEl = document.querySelector('html');
-  htmlEl.setAttribute('style', `background: url(${photoUrl}) no-repeat center center fixed;`);
+  const htmlEl = document.querySelector('.page-container');
+  htmlEl.setAttribute('style', `background-image: url(${photoUrl});`);
 };
 
-
-
-// query conditions: if after sunset = night + weather summary; if before sunset = 
-
-// auto=format:  for automatically choosing the optimal image format depending on user browser

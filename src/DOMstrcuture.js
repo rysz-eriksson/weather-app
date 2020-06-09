@@ -8,9 +8,12 @@
 const pageContainer = document.createElement('div');
 pageContainer.classList.add('page-container');
 document.querySelector('body').appendChild(pageContainer);
+const overlay = document.createElement('div');
+overlay.classList.add('overlay');
+pageContainer.appendChild(overlay);
 
 const header = document.createElement('header');
-pageContainer.appendChild(header);
+overlay.appendChild(header);
 const controlButtons = document.createElement('div')
 controlButtons.setAttribute('id', 'controlPanel')
 header.appendChild(controlButtons);
@@ -20,7 +23,7 @@ header.appendChild(search);
 
 // section for current weather display
 const weatherDisplay = document.createElement('main');
-pageContainer.appendChild(weatherDisplay);
+overlay.appendChild(weatherDisplay);
 const currentWeather = document.createElement('section');
 currentWeather.setAttribute('id', 'curWeat');
 weatherDisplay.appendChild(currentWeather);
@@ -79,7 +82,7 @@ for (let i = 1; i < 4; i++) {
 // section for geolocation display
 const locationDataContainer = document.createElement('aside');
 locationDataContainer.setAttribute('id', 'locationData')
-pageContainer.appendChild(locationDataContainer);
+overlay.appendChild(locationDataContainer);
 const mapContainer = document.createElement('div');
 mapContainer.setAttribute('id', 'map');
 locationDataContainer.appendChild(mapContainer)
