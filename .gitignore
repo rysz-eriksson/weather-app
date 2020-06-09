@@ -1,3 +1,9 @@
+# playground folder for experimenting
+playground/
+
+# file storing keys to different APIs 
+apiKeys.js
+
 # Logs
 logs
 *.log
