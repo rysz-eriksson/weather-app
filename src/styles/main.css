@@ -11,6 +11,7 @@ body {
     color: whitesmoke;
     font-size: 18px;
     line-height: 150%;
+    min-width: 320px;
 }
 
 .page-container {
@@ -80,10 +81,10 @@ button#reload::before {
 }
 
 button.voice {
-    padding: 23px 12px 13px 17px;
-    border-left: none;
+    padding: 23px 12px 15px 16px;
+    border: none;
     position: absolute;
-    right: 74px;
+    right: 76px;
 }
 
 button.voice::before {
