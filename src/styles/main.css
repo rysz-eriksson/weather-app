@@ -30,7 +30,6 @@ body {
     height: 100%;
     background-color: rgba(0,0,0,0.3);
     overflow: scroll;
-
 }
 
 header {
@@ -89,7 +88,6 @@ button.voice {
 
 button.voice::before {
     width: 2px;
-
 }
 
 button.voice::before {

@@ -1,6 +1,6 @@
-/* eslint-disable no-undef */
+// render location unit (map + coordinates)
+
 import apiKeys from './apiKeys';
-import { getCoords } from './position';
 
 const dmsConvert = (anglePos) => {
   const degrees = Math.floor(anglePos);

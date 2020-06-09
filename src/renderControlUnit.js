@@ -1,7 +1,3 @@
-/* eslint-disable no-undef */
-/* eslint-disable import/no-cycle */
-/* eslint-disable max-classes-per-file */
-
 import renderCurrentWeather from './renderWeatherUnit';
 import { renderPos, renderCoordsText } from './renderLocationUnit';
 import renderImage from './renderPicture';
@@ -48,6 +44,8 @@ class Temperature {
 
 const buttonsArray = [new Reload(), new Language('en'), new Language('pl'), new Temperature('celcius', '°C'), new Temperature('farenheit', '°F')];
 
+
+// rendering buttons for control panel
 const renderControlUnit = () => {
   buttonsArray.map((item) => {
     const buttonEl = document.createElement('button');
@@ -67,7 +65,7 @@ const reloadAfterChange = async (cityName) => {
   renderCurrentWeather();
   renderImage();
   renderPos();
-}
+};
 
 const renderSearchPanel = () => {
   const lang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en';
@@ -75,7 +73,7 @@ const renderSearchPanel = () => {
   searchInput.setAttribute('id', 'searchInput');
   searchInput.setAttribute('placeholder', `${lang === 'en' ? 'Search city' : 'Szukaj miasta'}`);
   document.querySelector('#searchPanel').appendChild(searchInput);
-  
+
   const searchSubmit = document.createElement('button');
   searchSubmit.setAttribute('id', 'searchButton');
   searchSubmit.textContent = `${lang === 'en' ? 'Search' : 'Szukaj'}`;

@@ -1,6 +1,6 @@
-/* eslint-disable no-undef */
+// render units with current and future daily forecast
 import moment from 'moment';
-import { getCity, getCoords } from './position';
+import { getCity } from './position';
 import getWeatherData from './getWeatherData';
 
 

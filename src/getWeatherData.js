@@ -1,4 +1,3 @@
-import { getCoords } from './position';
 import apiKeys from './apiKeys';
 
 const getWeatherData = async (city, lang) => {

@@ -1,3 +1,5 @@
+// calls to unsplash API to render images based on time of day, season and current weather
+
 import moment from 'moment';
 import apiKeys from './apiKeys';
 import getWeatherData from './getWeatherData';
@@ -21,13 +23,9 @@ export default async (city) => {
   const queryUrl = `https://api.unsplash.com/photos/random?query=${query}&client_id=${apiKeys.unsplashKey}`;
   const photoUrl = await fetch(queryUrl)
     .then((res) => res.json())
-    .then((data) => {
-      return data.urls.regular;
-    }).catch((err) => {
+    .then((data) => data.urls.regular).catch((err) => {
       console.log(err);
     });
-  console.log(queryUrl);
   const htmlEl = document.querySelector('.page-container');
   htmlEl.setAttribute('style', `background-image: url(${photoUrl});`);
 };
-

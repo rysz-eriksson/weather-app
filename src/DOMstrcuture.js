@@ -1,7 +1,5 @@
-/* eslint-disable no-plusplus */
-/* eslint-disable no-undef */
 
-// creating DOM structure 
+// creating DOM structure
 
 // header containing control unit
 
@@ -14,11 +12,11 @@ pageContainer.appendChild(overlay);
 
 const header = document.createElement('header');
 overlay.appendChild(header);
-const controlButtons = document.createElement('div')
-controlButtons.setAttribute('id', 'controlPanel')
+const controlButtons = document.createElement('div');
+controlButtons.setAttribute('id', 'controlPanel');
 header.appendChild(controlButtons);
-const search = document.createElement('div')
-search.setAttribute('id', 'searchPanel')
+const search = document.createElement('div');
+search.setAttribute('id', 'searchPanel');
 header.appendChild(search);
 
 // section for current weather display
@@ -81,14 +79,14 @@ for (let i = 1; i < 4; i++) {
 
 // section for geolocation display
 const locationDataContainer = document.createElement('aside');
-locationDataContainer.setAttribute('id', 'locationData')
+locationDataContainer.setAttribute('id', 'locationData');
 overlay.appendChild(locationDataContainer);
 const mapContainer = document.createElement('div');
 mapContainer.setAttribute('id', 'map');
-locationDataContainer.appendChild(mapContainer)
+locationDataContainer.appendChild(mapContainer);
 const latEl = document.createElement('p');
-latEl.setAttribute('id', 'latitude')
+latEl.setAttribute('id', 'latitude');
 const longEl = document.createElement('p');
-longEl.setAttribute('id', 'longitude')
+longEl.setAttribute('id', 'longitude');
 locationDataContainer.appendChild(latEl);
 locationDataContainer.appendChild(longEl);
