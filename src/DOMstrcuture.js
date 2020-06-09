@@ -5,8 +5,12 @@
 
 // header containing control unit
 
+const pageContainer = document.createElement('div');
+pageContainer.classList.add('page-container');
+document.querySelector('body').appendChild(pageContainer);
+
 const header = document.createElement('header');
-document.querySelector('body').appendChild(header);
+pageContainer.appendChild(header);
 const controlButtons = document.createElement('div')
 controlButtons.setAttribute('id', 'controlPanel')
 header.appendChild(controlButtons);
@@ -15,10 +19,11 @@ search.setAttribute('id', 'searchPanel')
 header.appendChild(search);
 
 // section for current weather display
-
+const weatherDisplay = document.createElement('main');
+pageContainer.appendChild(weatherDisplay);
 const currentWeather = document.createElement('section');
 currentWeather.setAttribute('id', 'curWeat');
-document.querySelector('body').appendChild(currentWeather);
+weatherDisplay.appendChild(currentWeather);
 const timeAndLoc = document.createElement('div');
 timeAndLoc.classList.add('time-n-loc');
 currentWeather.appendChild(timeAndLoc);
@@ -35,6 +40,7 @@ const temp = document.createElement('h1');
 temp.setAttribute('id', 'currentTemp');
 tempWidget.appendChild(temp);
 const icon = document.createElement('i');
+icon.classList.add('owf');
 icon.classList.add('owf');
 tempWidget.appendChild(icon);
 const summaryWidget = document.createElement('div');
@@ -53,7 +59,7 @@ summaryPars.forEach((item) => {
 // section for future daily weather display
 const dailyWeather = document.createElement('section');
 currentWeather.setAttribute('id', 'dailyWeat');
-document.querySelector('body').appendChild(dailyWeather);
+weatherDisplay.appendChild(dailyWeather);
 
 for (let i = 1; i < 4; i++) {
   const dayContainer = document.createElement('div');
@@ -71,9 +77,9 @@ for (let i = 1; i < 4; i++) {
 }
 
 // section for geolocation display
-const locationDataContainer = document.createElement('section');
+const locationDataContainer = document.createElement('aside');
 locationDataContainer.setAttribute('id', 'locationData')
-document.querySelector('body').appendChild(locationDataContainer);
+pageContainer.appendChild(locationDataContainer);
 const mapContainer = document.createElement('div');
 mapContainer.setAttribute('id', 'map');
 locationDataContainer.appendChild(mapContainer)

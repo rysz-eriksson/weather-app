@@ -8,8 +8,6 @@ const celToFarConverter = (celcius) => celcius * 1.8 + 32;
 
 const renderTimeandLocation = (city, country, lang, timezone) => {
   const now = moment();
-  // now.locale(lang);
-  console.log()
   document.querySelector('#location').textContent = `${city}, ${country}`;
   document.querySelector('#time').textContent = now.utcOffset(timezone / 60).locale(lang).format('ddd DD MMMM HH:mm');
 };
