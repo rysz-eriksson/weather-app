@@ -12,7 +12,7 @@ import { getCoords } from './position';
 class Reload {
   constructor() {
     this.id = 'reload';
-    this.content = 'RELOAD';
+    this.content = '';
   }
 
   onClickAction() {
@@ -100,13 +100,12 @@ const renderVoiceSearch = () => {
   const recognition = new SpeechRecognition();
 
   recognition.addEventListener('result', (e) => {
-    console.log(e);
     const { transcript } = e.results[0][0];
     document.querySelector('#searchInput').value = transcript;
     reloadAfterChange(transcript);
   });
   const voiceSearch = document.createElement('button');
-  voiceSearch.textContent = 'Voice';
+  voiceSearch.classList.add('voice');
   voiceSearch.addEventListener('click', () => {
     recognition.lang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en';
     recognition.start();

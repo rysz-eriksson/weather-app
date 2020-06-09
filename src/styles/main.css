@@ -42,17 +42,59 @@ header {
     align-items: center;
 }
 
+header > div:last-of-type {
+    position: relative;
+}
+
 button, input {
     background-color: rgba(0,0,0,0.3);
     border: black 1px solid;
-    color: whitesmoke;
+    color: #f5f5f5;
     font-size: 14px;
     padding: 10px;
     margin: 5px;
     border-radius: 3px;
     transition: .3s;
     cursor: pointer;
+    position: relative;
 }
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    filter: invert(100%) sepia(41%) saturate(50%) hue-rotate(284deg) brightness(107%) contrast(92%);
+    width: 10px;
+    height: 10px;
+    padding: 8px;
+}
+
+button#reload {
+    padding: 23px 19px 13px 19px;
+}
+
+button#reload::before {
+    background: url(../images/sync-alt-solid.svg)
+}
+
+button.voice {
+    padding: 23px 12px 13px 17px;
+    border-left: none;
+    position: absolute;
+    right: 76px;
+}
+
+button.voice::before {
+    width: 2px;
+
+}
+
+button.voice::before {
+    background: url(../images/microphone-solid.svg)
+}
+
+
 
 button:hover {
     background-color: rgba(255, 255, 255, 0.3);
