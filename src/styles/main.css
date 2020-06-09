@@ -29,7 +29,7 @@ body {
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.3);
-    overflow: hidden;
+    overflow: scroll;
 
 }
 
@@ -40,6 +40,8 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    overflow: hidden;
 }
 
 header > div:last-of-type {
@@ -82,7 +84,7 @@ button.voice {
     padding: 23px 12px 13px 17px;
     border-left: none;
     position: absolute;
-    right: 76px;
+    right: 74px;
 }
 
 button.voice::before {
@@ -93,8 +95,6 @@ button.voice::before {
 button.voice::before {
     background: url(../images/microphone-solid.svg)
 }
-
-
 
 button:hover {
     background-color: rgba(255, 255, 255, 0.3);
@@ -113,16 +113,11 @@ input {
     cursor: default;
 }
 
-
-
-
-
 main {
-    max-width: 60%;
-    float: left;
+    width: 80%;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    margin-left: 5%;
     margin-top: 5%;
 }
 
@@ -132,10 +127,9 @@ main {
 
 
 aside {
-    float: right;
-    margin-right: 5%;
-    margin-top: 10%;
-    min-width: 300px;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 5%;
 }
 
 main div {
@@ -173,8 +167,8 @@ main div {
 
 .sum-widget {
     float: left;
-    padding: 20px 40px;
 }
+
 
 section:last-of-type {
     width: 80%;
@@ -191,13 +185,61 @@ section:last-of-type div {
     text-align: center;
 }
 
-aside p {
-    text-align: right;
-}
-
 #map {
-    width: 300px; 
-    height: 300px;
+    width: 250px; 
+    height: 250px;
     border-radius: 10%;
 }
 
+@media only screen and (min-width: 480px) and (max-width: 800px) {
+    .sum-widget {
+        padding: 20px 20px;
+    }
+    #map {
+        width: 300px; 
+        height: 300px;
+    }
+}
+
+@media only screen and (min-width: 801px) and (max-width: 1020px) {
+    main, aside {
+        width: 90%;
+    }
+    .sum-widget {
+        padding: 20px 40px;
+    }
+    #map {
+        width: 300px; 
+        height: 300px;
+    }
+}
+
+@media only screen and (min-width: 1021px) {
+    .overlay {
+        overflow: hidden;
+    }
+    main {
+        max-width: 60%;
+        width: fit-content;
+		float: left;
+		margin-left: 5%;
+	}
+	aside {
+    float: right;
+    width: fit-content;
+    margin-right: 5%;
+    margin-top: 10%;
+    min-width: 300px;
+    max-width: 50%;
+    }
+    .sum-widget {
+        padding: 20px 40px;
+    }
+    aside p {
+    text-align: right;
+    }
+    #map {
+        width: 300px; 
+        height: 300px;
+    }
+}
