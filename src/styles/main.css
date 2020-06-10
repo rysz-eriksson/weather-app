@@ -1,0 +1,244 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    color: whitesmoke;
+    font-size: 18px;
+    line-height: 150%;
+    min-width: 320px;
+}
+
+.page-container {
+    width: 100%;
+    height: 100vh;
+    max-width: 1500px;
+    margin: 0 auto;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+}
+
+.overlay {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.3);
+    overflow: scroll;
+}
+
+header {
+    height: 100px;
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    overflow: hidden;
+}
+
+header > div:last-of-type {
+    position: relative;
+}
+
+button, input {
+    background-color: rgba(0,0,0,0.3);
+    border: black 1px solid;
+    color: #f5f5f5;
+    font-size: 14px;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 3px;
+    transition: .3s;
+    cursor: pointer;
+    position: relative;
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    filter: invert(100%) sepia(41%) saturate(50%) hue-rotate(284deg) brightness(107%) contrast(92%);
+    width: 10px;
+    height: 10px;
+    padding: 8px;
+}
+
+button#reload {
+    padding: 23px 19px 13px 19px;
+}
+
+button#reload::before {
+    background: url(../images/sync-alt-solid.svg)
+}
+
+button.voice {
+    padding: 23px 12px 15px 16px;
+    border: none;
+    position: absolute;
+    right: 76px;
+}
+
+button.voice::before {
+    width: 2px;
+}
+
+button.voice::before {
+    background: url(../images/microphone-solid.svg)
+}
+
+button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+button:active {
+    scale: 0.99;
+    background-color: rgba(0,0,0,0.6);
+}
+
+button:focus, input:focus {
+    outline: black;
+}
+
+input {
+    cursor: default;
+}
+
+main {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    margin-top: 5%;
+}
+
+.owf {
+    font-size: 80px;
+}
+
+
+aside {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 5%;
+}
+
+main div {
+    padding: 10px 0;
+}
+
+.time-n-loc {
+    float: left;
+    width: 100%;
+}
+
+.time-n-loc > h1 {
+    font-size: 30px;
+    font-weight: bold;
+    padding: 5px 0;
+
+}
+
+.temp-widget {
+    float: left;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+}
+
+.temp-widget > h1 {
+    font-size: 60px;
+    font-weight: bold;
+    line-height: 60px
+}
+
+.temp-widget > .owf {
+    font-size: 120px;
+}
+
+.sum-widget {
+    float: left;
+}
+
+
+section:last-of-type {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+}
+
+section:last-of-type h2 {
+    font-size: 30px;
+    padding-bottom: 10px;
+}
+
+section:last-of-type div {
+    text-align: center;
+}
+
+#map {
+    width: 250px; 
+    height: 250px;
+    border-radius: 10%;
+}
+
+@media only screen and (min-width: 480px) and (max-width: 800px) {
+    .sum-widget {
+        padding: 20px 20px;
+    }
+    #map {
+        width: 300px; 
+        height: 300px;
+    }
+}
+
+@media only screen and (min-width: 801px) and (max-width: 1020px) {
+    main, aside {
+        width: 90%;
+    }
+    .sum-widget {
+        padding: 20px 40px;
+    }
+    #map {
+        width: 300px; 
+        height: 300px;
+    }
+}
+
+@media only screen and (min-width: 1021px) {
+    .overlay {
+        overflow: hidden;
+    }
+    main {
+        max-width: 60%;
+        width: fit-content;
+		float: left;
+		margin-left: 5%;
+	}
+	aside {
+    float: right;
+    width: fit-content;
+    margin-right: 5%;
+    margin-top: 10%;
+    min-width: 300px;
+    max-width: 50%;
+    }
+    .sum-widget {
+        padding: 20px 40px;
+    }
+    aside p {
+    text-align: right;
+    }
+    #map {
+        width: 300px; 
+        height: 300px;
+    }
+}
