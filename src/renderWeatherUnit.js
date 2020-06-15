@@ -6,9 +6,9 @@ import getWeatherData from './getWeatherData';
 
 const celToFarConverter = (celcius) => celcius * 1.8 + 32;
 
-const renderTimeandLocation = (city, country, lang, timezone) => {
+const renderTimeandLocation = (city, town, village, country, lang, timezone) => {
   const now = moment();
-  document.querySelector('#location').textContent = `${city}, ${country}`;
+  document.querySelector('#location').textContent = `${city || town || village}, ${country}`;
   document.querySelector('#time').textContent = now.utcOffset(timezone / 60).locale(lang).format('ddd DD MMMM HH:mm');
 };
 
@@ -37,9 +37,9 @@ const renderFutureForecast = (data, tempUnit, lang) => {
 export default async (search) => {
   const unit = localStorage.getItem('unit') ? localStorage.getItem('unit') : 'celcius';
   const lang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en';
-  const { city, country } = await getCity();
+  const { city, town, village, country } = await getCity();
   const { current, daily, timezone_offset } = await getWeatherData(search, lang);
-  renderTimeandLocation(city, country, lang, timezone_offset);
+  renderTimeandLocation(city, town, village, country, lang, timezone_offset);
   renderCurrentData(current, unit, lang);
   renderFutureForecast(daily, unit, lang);
 };

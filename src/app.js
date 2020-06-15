@@ -1,4 +1,3 @@
-import './DOMstrcuture';
 import { renderControlUnit, renderSearchPanel, renderVoiceSearch } from './renderControlUnit';
 import renderCurrentWeather from './renderWeatherUnit';
 import { renderPos } from './renderLocationUnit';

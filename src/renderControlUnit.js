@@ -72,6 +72,12 @@ const renderSearchPanel = () => {
   const searchInput = document.createElement('input');
   searchInput.setAttribute('id', 'searchInput');
   searchInput.setAttribute('placeholder', `${lang === 'en' ? 'Search city' : 'Szukaj miasta'}`);
+  searchInput.addEventListener('keyup', (e) => {
+    if (e.key === 'Enter') {
+      const text = document.querySelector('#searchInput').value;
+      reloadAfterChange(text);
+    }
+  });
   document.querySelector('#searchPanel').appendChild(searchInput);
 
   const searchSubmit = document.createElement('button');
