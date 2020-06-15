@@ -61,6 +61,10 @@ button, input {
     position: relative;
 }
 
+button:first-of-type, input:first-of-type {
+    margin-left: 0;
+}
+
 button::before {
     content: '';
     position: absolute;
@@ -113,10 +117,11 @@ input {
 }
 
 main {
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     margin-top: 5%;
 }
 
@@ -126,18 +131,13 @@ main {
 
 
 aside {
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
     margin-top: 5%;
 }
 
 main div {
     padding: 10px 0;
-}
-
-.time-n-loc {
-    float: left;
-    width: 100%;
 }
 
 .time-n-loc > h1 {
@@ -147,8 +147,12 @@ main div {
 
 }
 
+.sum-n-temp {
+    display: flex;
+    flex-direction: column;
+}
+
 .temp-widget {
-    float: left;
     display: flex;
     flex-direction: column;
     padding: 20px 0;
@@ -163,11 +167,6 @@ main div {
 .temp-widget > .owf {
     font-size: 120px;
 }
-
-.sum-widget {
-    float: left;
-}
-
 
 section:last-of-type {
     width: 80%;
@@ -191,8 +190,11 @@ section:last-of-type div {
 }
 
 @media only screen and (min-width: 480px) and (max-width: 800px) {
+    .sum-n-temp {
+        flex-direction: row;
+    }
     .sum-widget {
-        padding: 20px 20px;
+        padding: 20px 40px;
     }
     #map {
         width: 300px; 
@@ -204,8 +206,14 @@ section:last-of-type div {
     main, aside {
         width: 90%;
     }
+    .sum-n-temp {
+        flex-direction: row;
+    }
     .sum-widget {
         padding: 20px 40px;
+    }
+    section:last-of-type {
+        width: 60%;
     }
     #map {
         width: 300px; 
@@ -219,7 +227,6 @@ section:last-of-type div {
     }
     main {
         max-width: 60%;
-        width: fit-content;
 		float: left;
 		margin-left: 5%;
 	}
@@ -230,6 +237,9 @@ section:last-of-type div {
     margin-top: 10%;
     min-width: 300px;
     max-width: 50%;
+    }
+    .sum-n-temp {
+        flex-direction: row;
     }
     .sum-widget {
         padding: 20px 40px;

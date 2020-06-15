@@ -8,6 +8,56 @@
     <link href="https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.css" rel="stylesheet" />
 </head>
 <body>
+    <div class="page-container">
+        <div class="overlay">
+            <header>
+                <div id="controlPanel"></div>
+                <div id="searchPanel"></div>
+            </header>
+            <main>
+                <section>
+                    <div class="time-n-loc">
+                        <h1 id="location"></h1>
+                        <p id="time"></p>
+                    </div>
+                    <div class="sum-n-temp">
+                        <div class="temp-widget">
+                            <h1 id="currentTemp"></h1>
+                            <i class="owf"></i>
+                        </div>
+                        <div class="sum-widget">
+                            <h3 id="summary"></h3>
+                            <p id="feelsLike"></p>
+                            <p id="wind"></p>
+                            <p id="humidity"></p>
+                        </div>
+                    </div>
+                </section>
+                <section>
+                    <div id="dailyWeat-1">
+                        <h3></h3>
+                        <h2></h2>
+                        <i class="owf"></i>
+                    </div>
+                    <div id="dailyWeat-2">
+                        <h3></h3>
+                        <h2></h2>
+                        <i class="owf"></i>
+                    </div>
+                    <div id="dailyWeat-3">
+                        <h3></h3>
+                        <h2></h2>
+                        <i class="owf"></i>
+                    </div>
+                </section>
+            </main>
+            <aside>
+                <div id="map"></div>
+                <p id="latitude"></p>
+                <p id="longitude"></p>
+            </aside>
+        </div>
+    </div>
     <script src="bundle.js"></script>
 </body>
 </html>

@@ -28,8 +28,8 @@ const renderFutureForecast = (data, tempUnit, lang) => {
   data.map((day, index) => {
     if (index > 0 && index < 4) {
       document.querySelector(`#dailyWeat-${index}>h3`).textContent = moment.unix(day.dt).locale(lang).format('dddd');
-      document.querySelector(`#dailyWeat-${index}>div>h2`).textContent = tempUnit === 'celcius' ? `${parseInt(day.temp.day, 10)}°C` : `${parseInt(celToFarConverter(day.temp.day), 10)}°F`;
-      document.querySelector(`#dailyWeat-${index}>div>i`).classList.add(`owf-${day.weather[0].id}`);
+      document.querySelector(`#dailyWeat-${index}>h2`).textContent = tempUnit === 'celcius' ? `${parseInt(day.temp.day, 10)}°C` : `${parseInt(celToFarConverter(day.temp.day), 10)}°F`;
+      document.querySelector(`#dailyWeat-${index}>i`).classList.add(`owf-${day.weather[0].id}`);
     }
   });
 };
