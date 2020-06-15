@@ -2,7 +2,7 @@
 src/playground/
 
 # file storing keys to different APIs 
-src/apiKeys.js
+apiKeys.*
 
 # Logs
 logs
