@@ -6,9 +6,9 @@ import getWeatherData from './getWeatherData';
 
 const celToFarConverter = (celcius) => celcius * 1.8 + 32;
 
-const renderTimeandLocation = (city, country, lang, timezone) => {
+const renderTimeandLocation = (city, town, village, country, lang, timezone) => {
   const now = moment();
-  document.querySelector('#location').textContent = `${city}, ${country}`;
+  document.querySelector('#location').textContent = `${city || town || village}, ${country}`;
   document.querySelector('#time').textContent = now.utcOffset(timezone / 60).locale(lang).format('ddd DD MMMM HH:mm');
 };
 
@@ -28,8 +28,8 @@ const renderFutureForecast = (data, tempUnit, lang) => {
   data.map((day, index) => {
     if (index > 0 && index < 4) {
       document.querySelector(`#dailyWeat-${index}>h3`).textContent = moment.unix(day.dt).locale(lang).format('dddd');
-      document.querySelector(`#dailyWeat-${index}>div>h2`).textContent = tempUnit === 'celcius' ? `${parseInt(day.temp.day, 10)}°C` : `${parseInt(celToFarConverter(day.temp.day), 10)}°F`;
-      document.querySelector(`#dailyWeat-${index}>div>i`).classList.add(`owf-${day.weather[0].id}`);
+      document.querySelector(`#dailyWeat-${index}>h2`).textContent = tempUnit === 'celcius' ? `${parseInt(day.temp.day, 10)}°C` : `${parseInt(celToFarConverter(day.temp.day), 10)}°F`;
+      document.querySelector(`#dailyWeat-${index}>i`).classList.add(`owf-${day.weather[0].id}`);
     }
   });
 };
@@ -37,9 +37,9 @@ const renderFutureForecast = (data, tempUnit, lang) => {
 export default async (search) => {
   const unit = localStorage.getItem('unit') ? localStorage.getItem('unit') : 'celcius';
   const lang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en';
-  const { city, country } = await getCity();
+  const { city, town, village, country } = await getCity();
   const { current, daily, timezone_offset } = await getWeatherData(search, lang);
-  renderTimeandLocation(city, country, lang, timezone_offset);
+  renderTimeandLocation(city, town, village, country, lang, timezone_offset);
   renderCurrentData(current, unit, lang);
   renderFutureForecast(daily, unit, lang);
 };

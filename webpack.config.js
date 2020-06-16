@@ -20,6 +20,7 @@ module.exports = {
       use: [
         'style-loader',
         'css-loader',
+        'postcss-loader',
       ],
     }, {
       test: /\.(png|svg|jpg|gif)$/,
