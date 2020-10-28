@@ -1,11 +1,28 @@
+import ReturnedCity from './models/returnedCity'
+import Coords from './models/coords';
 import apiKeys from './apiKeys';
+
+type locationDetails = {
+  city?: string,
+  town?: string,
+  village?: string
+  continent: string,
+  country: string,
+  country_code: string,
+  formatted: string,
+  geometry: {
+    lat: number,
+    lng: number
+  }
+}
 
 
 // return city data for the city from search
-const getSearchedCity = async (query) => {
+const getSearchedCity = async (query:string) => {
   const lang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en';
   const url = `https://api.opencagedata.com/geocode/v1/json?q=${query}&language=${lang}&key=${apiKeys.ocdKey}`;
-  const value = await fetch(url)
+
+    const value: ReturnedCity = await fetch(url)
     .then((res) => res.json())
     .then((data) => ({
       city: data.results[0].formatted.split(',')[0],
@@ -13,19 +30,20 @@ const getSearchedCity = async (query) => {
       latitude: data.results[0].geometry.lat,
       longitude: data.results[0].geometry.lng,
     }))
-    .catch((err) => {
-      console.log('Error', err);
-    });
+    // .catch((err) => {
+    //   console.log('Error', err);
+    // });
   return value;
 };
 
 // get coords from navigator web API or from getSearchedCity func and put to local storage
-const getCoords = async (search) => {
-  let position = {};
+const getCoords = async (search?: string) => {
+  let position: Coords;
   if (search) {
-    position = await getSearchedCity(search);
+   const { latitude, longitude } = await getSearchedCity(search);
+   position = { latitude, longitude}
   } else {
-    position = await new Promise((resolve, reject) => {
+    position = await new Promise<Coords>((resolve, reject) => {
       navigator.geolocation.getCurrentPosition((pos) => {
         resolve(pos.coords);
       },
@@ -35,9 +53,10 @@ const getCoords = async (search) => {
     }).then((data) => ({
       latitude: data.latitude,
       longitude: data.longitude,
-    })).catch((err) => {
-      console.log(err);
-    });
+    }))
+    // .catch((err) => {
+    //   console.log(err);
+    // });
   }
   localStorage.setItem('coords', JSON.stringify(position));
 };
@@ -45,9 +64,9 @@ const getCoords = async (search) => {
 // get the city, country info
 const getCity = async () => {
   const lang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en';
-  const { latitude, longitude } = JSON.parse(localStorage.getItem('coords'));
-  const cityUrl = `https://api.opencagedata.com/geocode/v1/json?q=${latitude.toFixed(7)},${longitude.toFixed(7)}&language=${lang}&key=${apiKeys.ocdKey}`;
-  const locDetails = await fetch(cityUrl)
+  const position: Coords = JSON.parse(localStorage.getItem('coords')!);
+  const cityUrl: string = `https://api.opencagedata.com/geocode/v1/json?q=${position.latitude.toFixed(7)},${position.longitude.toFixed(7)}&language=${lang}&key=${apiKeys.ocdKey}`;
+  const locDetails: locationDetails = await fetch(cityUrl)
     .then((res) => res.json())
     .then((data) => data.results[0].components)
     .catch((err) => {

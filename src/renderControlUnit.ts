@@ -52,7 +52,7 @@ const renderControlUnit = () => {
     buttonEl.setAttribute('id', item.id);
     buttonEl.textContent = item.content;
     buttonEl.addEventListener('click', item.onClickAction);
-    document.querySelector('#controlPanel').appendChild(buttonEl);
+    document.querySelector('#controlPanel')!.appendChild(buttonEl);
   });
 };
 
@@ -60,7 +60,7 @@ const renderControlUnit = () => {
 
 // search input
 
-const reloadAfterChange = async (cityName) => {
+const reloadAfterChange = async (cityName: string) => {
   await getCoords(cityName);
   renderCurrentWeather();
   renderImage();
@@ -74,26 +74,26 @@ const renderSearchPanel = () => {
   searchInput.setAttribute('placeholder', `${lang === 'en' ? 'Search city' : 'Szukaj miasta'}`);
   searchInput.addEventListener('keyup', (e) => {
     if (e.key === 'Enter') {
-      const text = document.querySelector('#searchInput').value;
+      const text = document.querySelector('#searchInput')!.value;
       reloadAfterChange(text);
     }
   });
-  document.querySelector('#searchPanel').appendChild(searchInput);
+  document.querySelector('#searchPanel')!.appendChild(searchInput);
 
   const searchSubmit = document.createElement('button');
   searchSubmit.setAttribute('id', 'searchButton');
   searchSubmit.textContent = `${lang === 'en' ? 'Search' : 'Szukaj'}`;
   searchSubmit.addEventListener('click', () => {
-    const text = document.querySelector('#searchInput').value;
+    const text = document.querySelector('#searchInput')!.value;
     reloadAfterChange(text);
   });
-  document.querySelector('#searchPanel').appendChild(searchSubmit);
+  document.querySelector('#searchPanel')!.appendChild(searchSubmit);
 };
 
 const searchPanelLangChange = () => {
   const lang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en';
-  document.querySelector('#searchInput').setAttribute('placeholder', `${lang === 'en' ? 'Search city' : 'Szukaj miasta'}`);
-  document.querySelector('#searchButton').textContent = `${lang === 'en' ? 'Search' : 'Szukaj'}`;
+  document.querySelector('#searchInput')!.setAttribute('placeholder', `${lang === 'en' ? 'Search city' : 'Szukaj miasta'}`);
+  document.querySelector('#searchButton')!.textContent = `${lang === 'en' ? 'Search' : 'Szukaj'}`;
 };
 
 // voice search
@@ -105,7 +105,7 @@ const renderVoiceSearch = () => {
 
   recognition.addEventListener('result', (e) => {
     const { transcript } = e.results[0][0];
-    document.querySelector('#searchInput').value = transcript;
+    document.querySelector('#searchInput')!.value = transcript;
     reloadAfterChange(transcript);
   });
   const voiceSearch = document.createElement('button');
@@ -114,7 +114,7 @@ const renderVoiceSearch = () => {
     recognition.lang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en';
     recognition.start();
   });
-  document.querySelector('#searchPanel').appendChild(voiceSearch);
+  document.querySelector('#searchPanel')!.appendChild(voiceSearch);
 };
 
 

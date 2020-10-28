@@ -26,6 +26,6 @@ export default async (city) => {
     .then((data) => data.urls.regular).catch((err) => {
       console.log(err);
     });
-  const htmlEl = document.querySelector('.page-container');
+  const htmlEl = document.querySelector('.page-container')!;
   htmlEl.setAttribute('style', `background-image: url(${photoUrl});`);
 };
