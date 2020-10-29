@@ -1,6 +1,7 @@
 import ReturnedCity from './models/returnedCity'
 import Coords from './models/coords';
 import apiKeys from './apiKeys';
+import { lang } from './models/lang-unit';
 
 type locationDetails = {
   city?: string,

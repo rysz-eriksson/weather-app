@@ -1,33 +1,32 @@
 // render location unit (map + coordinates)
 
+import Coords from './models/coords'
 import apiKeys from './apiKeys';
+import { Map } from 'mapbox-gl'
 
-const dmsConvert = (anglePos) => {
+const dmsConvert = (anglePos: number) => {
   const degrees = Math.floor(anglePos);
-  const minutes = parseInt((anglePos - degrees) * 60, 10);
+  const minutes = Math.round((anglePos - degrees) * 60);
   return `${degrees}° ${minutes}'`;
 };
 
 const renderCoordsText = () => {
-  const { latitude, longitude } = JSON.parse(localStorage.getItem('coords'));
+  const position: Coords = JSON.parse(localStorage.getItem('coords')!);
   const lang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en';
-  document.querySelector('#latitude').textContent = `${lang === 'en' ? 'Latitude' : 'Szerokość'}: ${dmsConvert(latitude)}`;
-  document.querySelector('#longitude').textContent = `${lang === 'en' ? 'Longitude' : 'Długość'}: ${dmsConvert(longitude)}`;
+  document.querySelector('#latitude')!.textContent = `${lang === 'en' ? 'Latitude' : 'Szerokość'}: ${dmsConvert(position.latitude)}`;
+  document.querySelector('#longitude')!.textContent = `${lang === 'en' ? 'Longitude' : 'Długość'}: ${dmsConvert(position.longitude)}`;
 
 }
 
 const renderPos = () => {
-  const coords = [];
-  const { latitude, longitude } = JSON.parse(localStorage.getItem('coords'));
-  coords.push(longitude);
-  coords.push(latitude);
+  const position: Coords = JSON.parse(localStorage.getItem('coords')!);
   renderCoordsText();
 
-  const map = new mapboxgl.Map({
+  const map = new Map({
     accessToken: apiKeys.mapBoxKey,
     container: 'map',
     style: 'mapbox://styles/mapbox/streets-v11',
-    center: [...coords],
+    center: [position.longitude, position.latitude],
     zoom: 10,
   });
 };
