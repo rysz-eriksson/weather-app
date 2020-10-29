@@ -117,6 +117,10 @@ const searchPanelLangChange = () => {
 
 // voice search
 
+declare global {
+  interface Window { webkitSpeechRecognition: any; }
+}
+
 const renderVoiceSearch = () => {
   window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
