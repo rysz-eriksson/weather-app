@@ -1,5 +1,6 @@
 import ReturnedCity from './models/returnedCity'
 import Coords from './models/coords';
+import {getLangFromLS, getCoordsFromLS} from './utils/data-from-ls'
 import apiKeys from './apiKeys';
 import { lang } from './models/lang-unit';
 
@@ -20,7 +21,7 @@ type locationDetails = {
 
 // return city data for the city from search
 const getSearchedCity = async (query:string) => {
-  const lang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en';
+  const lang = getLangFromLS();
   const url = `https://api.opencagedata.com/geocode/v1/json?q=${query}&language=${lang}&key=${apiKeys.ocdKey}`;
 
     const value: ReturnedCity = await fetch(url)
@@ -64,8 +65,8 @@ const getCoords = async (search?: string) => {
 
 // get the city, country info
 const getCity = async () => {
-  const lang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en';
-  const position: Coords = JSON.parse(localStorage.getItem('coords')!);
+  const lang = getLangFromLS();
+  const position = getCoordsFromLS();
   const cityUrl: string = `https://api.opencagedata.com/geocode/v1/json?q=${position.latitude.toFixed(7)},${position.longitude.toFixed(7)}&language=${lang}&key=${apiKeys.ocdKey}`;
   const locDetails: locationDetails = await fetch(cityUrl)
     .then((res) => res.json())

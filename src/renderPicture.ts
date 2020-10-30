@@ -1,6 +1,6 @@
 // calls to unsplash API to render images based on time of day, season and current weather
 
-import moment, { Moment } from 'moment';
+import moment from 'moment';
 import apiKeys from './apiKeys';
 import getWeatherData from './getWeatherData';
 

@@ -1,6 +1,6 @@
 // render location unit (map + coordinates)
 
-import Coords from './models/coords'
+import {getCoordsFromLS, getLangFromLS} from './utils/data-from-ls'
 import apiKeys from './apiKeys';
 import { Map } from 'mapbox-gl'
 
@@ -11,15 +11,15 @@ const dmsConvert = (anglePos: number) => {
 };
 
 const renderCoordsText = () => {
-  const position: Coords = JSON.parse(localStorage.getItem('coords')!);
-  const lang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en';
+  const position = getCoordsFromLS();
+  const lang = getLangFromLS();
   document.querySelector('#latitude')!.textContent = `${lang === 'en' ? 'Latitude' : 'Szerokość'}: ${dmsConvert(position.latitude)}`;
   document.querySelector('#longitude')!.textContent = `${lang === 'en' ? 'Longitude' : 'Długość'}: ${dmsConvert(position.longitude)}`;
 
 }
 
 const renderPos = () => {
-  const position: Coords = JSON.parse(localStorage.getItem('coords')!);
+  const position = getCoordsFromLS();
   renderCoordsText();
 
   const map = new Map({

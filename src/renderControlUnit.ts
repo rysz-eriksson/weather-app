@@ -1,8 +1,8 @@
+import {getLangFromLS} from './utils/data-from-ls';
 import renderCurrentWeather from './renderWeatherUnit';
 import { renderPos, renderCoordsText } from './renderLocationUnit';
 import renderImage from './renderPicture';
 import { getCoords } from './position';
-import { lang } from './models/lang-unit';
 
 // classes for buttons
 
@@ -87,7 +87,7 @@ const reloadAfterChange = async (cityName: string) => {
 };
 
 const renderSearchPanel = () => {
-  const lang = localStorage.getItem('lang') ? localStorage.getItem('lang')! : 'en';
+  const lang = getLangFromLS();
   const searchInput: HTMLInputElement = document.createElement('input');
   searchInput.setAttribute('id', 'searchInput');
   searchInput.setAttribute('placeholder', `${lang === 'en' ? 'Search city' : 'Szukaj miasta'}`);
@@ -110,7 +110,7 @@ const renderSearchPanel = () => {
 };
 
 const searchPanelLangChange = () => {
-  const lang = localStorage.getItem('lang') ? localStorage.getItem('lang') : 'en';
+  const lang = getLangFromLS();
   document.querySelector('#searchInput')!.setAttribute('placeholder', `${lang === 'en' ? 'Search city' : 'Szukaj miasta'}`);
   document.querySelector('#searchButton')!.textContent = `${lang === 'en' ? 'Search' : 'Szukaj'}`;
 };
@@ -134,7 +134,7 @@ const renderVoiceSearch = () => {
   const voiceSearch = document.createElement('button');
   voiceSearch.classList.add('voice');
   voiceSearch.addEventListener('click', () => {
-    recognition.lang = localStorage.getItem('lang') ? localStorage.getItem('lang')! : 'en';
+    recognition.lang = getLangFromLS();
     recognition.start();
   });
   document.querySelector('#searchPanel')!.appendChild(voiceSearch);

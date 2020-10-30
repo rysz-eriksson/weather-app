@@ -1,6 +1,7 @@
 // render units with current and future daily forecast
 import moment from 'moment';
 import { lang, unit } from './models/lang-unit';
+import { getLangFromLS, getUnitFromLS } from './utils/data-from-ls';
 import {Current, Daily} from './models/weatherDataCall';
 import { getCity } from './position';
 import getWeatherData from './getWeatherData';
@@ -37,8 +38,8 @@ const renderFutureForecast = (data: Daily[], tempUnit: unit, lang: lang) => {
 };
 
 export default async () => {
-  const unit: unit = localStorage.getItem('unit') ? (localStorage.getItem('unit')! as unit) : 'celcius';
-  const lang: lang = localStorage.getItem('lang') ? (localStorage.getItem('lang')! as lang) : 'en';
+  const unit = getUnitFromLS();
+  const lang = getLangFromLS();
   const { city, town, village, country } = await getCity();
   const { current, daily, timezone_offset } = await getWeatherData(lang);
   renderTimeandLocation(country, lang, timezone_offset, city, town, village);
