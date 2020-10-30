@@ -7,8 +7,14 @@ import {Current, Daily} from './models/weatherDataCall';
 import { getCity } from './position';
 import getWeatherData from './getWeatherData';
 
-
-const celToFarConverter = (celcius: number) => celcius * 1.8 + 32;
+const renderTempText = (celcius: number, unit: unit) => {
+  if (unit === 'celcius') {
+    return `${Math.round(celcius)}°C`
+  } else {
+    const farenheit = celcius * 1.8 + 32
+    return `${Math.round(farenheit)}°F`
+  }
+}
 
 const renderTimeandLocation = ( country: string, lang: lang, timezone: number, city?: string, town?: string, village?: string) => {
   const now = moment();
@@ -19,12 +25,12 @@ const renderTimeandLocation = ( country: string, lang: lang, timezone: number, c
 const renderCurrentData = (current: Current, tempUnit: unit, lang: lang) => {
   const now = moment();
   const text = lang === 'en' ? textEnglish : textPolish;
-  document.querySelector('#currentTemp')!.textContent = tempUnit === 'celcius' ? `${Math.round(current.temp)}°C` : `${Math.round(celToFarConverter(current.temp))}°F`;
+  document.querySelector('#currentTemp')!.textContent = renderTempText(current.temp, tempUnit);
   const iconSuffix = now.unix() > current.sunrise && now.unix() < current.sunset ? 'd' : 'n';
   document.querySelector('.temp-widget>i')!.classList.add(`owf-${current.weather[0].id}-${iconSuffix}`);
 
   document.querySelector('#summary')!.textContent = current.weather[0].description;
-  document.querySelector('#feelsLike')!.textContent = `${text.weather.feelsLike}: ${tempUnit === 'celcius' ? `${Math.round(current.feels_like)}°C` : `${Math.round(celToFarConverter(current.feels_like))}°F`}`;
+  document.querySelector('#feelsLike')!.textContent = renderTempText(current.temp, tempUnit);
   document.querySelector('#wind')!.textContent = `${text.weather.wind}: ${current.wind_speed} (m/s)`;
   document.querySelector('#humidity')!.textContent = `${text.weather.humidity}: ${current.humidity}%`;
 };
@@ -33,7 +39,7 @@ const renderFutureForecast = (data: Daily[], tempUnit: unit, lang: lang) => {
   data.map((day: Daily, index: number) => {
     if (index > 0 && index < 4) {
       document.querySelector(`#dailyWeat-${index}>h3`)!.textContent = moment.unix(day.dt).locale(lang).format('dddd');
-      document.querySelector(`#dailyWeat-${index}>h2`)!.textContent = tempUnit === 'celcius' ? `${Math.round(day.temp.day)}°C` : `${Math.round(celToFarConverter(day.temp.day))}°F`;
+      document.querySelector(`#dailyWeat-${index}>h2`)!.textContent = renderTempText(day.temp.day, tempUnit);
       document.querySelector(`#dailyWeat-${index}>i`)!.classList.add(`owf-${day.weather[0].id}`);
     }
   });
