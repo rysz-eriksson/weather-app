@@ -2,7 +2,6 @@ import ReturnedCity from './models/returnedCity'
 import Coords from './models/coords';
 import {getLangFromLS, getCoordsFromLS} from './utils/data-from-ls'
 import apiKeys from './apiKeys';
-import { lang } from './models/lang-unit';
 
 type locationDetails = {
   city?: string,
@@ -24,18 +23,19 @@ const getSearchedCity = async (query:string) => {
   const lang = getLangFromLS();
   const url = `https://api.opencagedata.com/geocode/v1/json?q=${query}&language=${lang}&key=${apiKeys.ocdKey}`;
 
-    const value: ReturnedCity = await fetch(url)
-    .then((res) => res.json())
-    .then((data) => ({
-      city: data.results[0].formatted.split(',')[0],
-      country: data.results[0].components.country,
-      latitude: data.results[0].geometry.lat,
-      longitude: data.results[0].geometry.lng,
-    }))
-    // .catch((err) => {
-    //   console.log('Error', err);
-    // });
-  return value;
+    const value = await fetch(url)
+    .then(res => res.json())
+    .then(data => data)
+    .catch(err => {
+      console.log('Error', err);
+    });
+    const city: ReturnedCity = {
+      city: value.results[0].formatted.split(',')[0],
+      country: value.results[0].components.country,
+      latitude: value.results[0].geometry.lat,
+      longitude: value.results[0].geometry.lng
+    }
+  return city;
 };
 
 // get coords from navigator web API or from getSearchedCity func and put to local storage
@@ -45,20 +45,21 @@ const getCoords = async (search?: string) => {
    const { latitude, longitude } = await getSearchedCity(search);
    position = { latitude, longitude}
   } else {
-    position = await new Promise<Coords>((resolve, reject) => {
+    const result = await new Promise((resolve, reject) => {
       navigator.geolocation.getCurrentPosition((pos) => {
         resolve(pos.coords);
       },
       (error) => {
         reject(error);
       });
-    }).then((data) => ({
-      latitude: data.latitude,
-      longitude: data.longitude,
-    }))
-    // .catch((err) => {
-    //   console.log(err);
-    // });
+    }).then((data: any) => data)
+    .catch((err) => {
+      console.log(err);
+    });
+    position = {
+      latitude: result.latitude,
+      longitude: result.longitude
+    }
   }
   localStorage.setItem('coords', JSON.stringify(position));
 };

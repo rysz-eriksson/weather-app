@@ -2,7 +2,6 @@ import {lang} from './models/lang-unit'
 import {WeatherDataCall} from './models/weatherDataCall';
 import {getCoordsFromLS} from './utils/data-from-ls';
 import apiKeys from './apiKeys';
-import Coords from './models/coords';
 
 const getWeatherData = async (lang?: lang) => {
   if (!lang) {
