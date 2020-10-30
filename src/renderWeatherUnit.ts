@@ -1,6 +1,7 @@
 // render units with current and future daily forecast
 import moment from 'moment';
 import { lang, unit } from './models/lang-unit';
+import {textEnglish, textPolish} from './utils/lang-text';
 import { getLangFromLS, getUnitFromLS } from './utils/data-from-ls';
 import {Current, Daily} from './models/weatherDataCall';
 import { getCity } from './position';
@@ -17,14 +18,15 @@ const renderTimeandLocation = ( country: string, lang: lang, timezone: number, c
 
 const renderCurrentData = (current: Current, tempUnit: unit, lang: lang) => {
   const now = moment();
+  const text = lang === 'en' ? textEnglish : textPolish;
   document.querySelector('#currentTemp')!.textContent = tempUnit === 'celcius' ? `${Math.round(current.temp)}°C` : `${Math.round(celToFarConverter(current.temp))}°F`;
   const iconSuffix = now.unix() > current.sunrise && now.unix() < current.sunset ? 'd' : 'n';
   document.querySelector('.temp-widget>i')!.classList.add(`owf-${current.weather[0].id}-${iconSuffix}`);
 
   document.querySelector('#summary')!.textContent = current.weather[0].description;
-  document.querySelector('#feelsLike')!.textContent = `${lang === 'en' ? 'Feels like' : 'Odczuwalna temperatura'}: ${tempUnit === 'celcius' ? `${Math.round(current.feels_like)}°C` : `${Math.round(celToFarConverter(current.feels_like))}°F`}`;
-  document.querySelector('#wind')!.textContent = `${lang === 'en' ? 'Wind' : 'Wiatr'}: ${current.wind_speed} (m/s)`;
-  document.querySelector('#humidity')!.textContent = `${lang === 'en' ? 'Humidity' : 'Wilgotność'}: ${current.humidity}%`;
+  document.querySelector('#feelsLike')!.textContent = `${text.weather.feelsLike}: ${tempUnit === 'celcius' ? `${Math.round(current.feels_like)}°C` : `${Math.round(celToFarConverter(current.feels_like))}°F`}`;
+  document.querySelector('#wind')!.textContent = `${text.weather.wind}: ${current.wind_speed} (m/s)`;
+  document.querySelector('#humidity')!.textContent = `${text.weather.humidity}: ${current.humidity}%`;
 };
 
 const renderFutureForecast = (data: Daily[], tempUnit: unit, lang: lang) => {

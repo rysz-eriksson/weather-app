@@ -3,6 +3,7 @@ import renderCurrentWeather from './renderWeatherUnit';
 import { renderPos, renderCoordsText } from './renderLocationUnit';
 import renderImage from './renderPicture';
 import { getCoords } from './position';
+import { textEnglish, textPolish } from './utils/lang-text';
 
 // classes for buttons
 
@@ -88,9 +89,10 @@ const reloadAfterChange = async (cityName: string) => {
 
 const renderSearchPanel = () => {
   const lang = getLangFromLS();
+  const text = lang === 'en' ? textEnglish : textPolish;
   const searchInput: HTMLInputElement = document.createElement('input');
   searchInput.setAttribute('id', 'searchInput');
-  searchInput.setAttribute('placeholder', `${lang === 'en' ? 'Search city' : 'Szukaj miasta'}`);
+  searchInput.setAttribute('placeholder', text.ctrl.searchPlac);
   searchInput.addEventListener('keyup', (e) => {
     if (e.key === 'Enter') {
       const text = (document.querySelector('#searchInput')! as HTMLInputElement).value;
@@ -101,7 +103,7 @@ const renderSearchPanel = () => {
 
   const searchSubmit = document.createElement('button');
   searchSubmit.setAttribute('id', 'searchButton');
-  searchSubmit.textContent = `${lang === 'en' ? 'Search' : 'Szukaj'}`;
+  searchSubmit.textContent = text.ctrl.searchButton;
   searchSubmit.addEventListener('click', () => {
     const text = (document.querySelector('#searchInput')! as HTMLInputElement).value;
     reloadAfterChange(text);
@@ -111,8 +113,9 @@ const renderSearchPanel = () => {
 
 const searchPanelLangChange = () => {
   const lang = getLangFromLS();
-  document.querySelector('#searchInput')!.setAttribute('placeholder', `${lang === 'en' ? 'Search city' : 'Szukaj miasta'}`);
-  document.querySelector('#searchButton')!.textContent = `${lang === 'en' ? 'Search' : 'Szukaj'}`;
+  const text = lang === 'en' ? textEnglish : textPolish;
+  document.querySelector('#searchInput')!.setAttribute('placeholder', text.ctrl.searchPlac);
+  document.querySelector('#searchButton')!.textContent = text.ctrl.searchButton;
 };
 
 // voice search
