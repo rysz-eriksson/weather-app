@@ -7,7 +7,7 @@ import {Current, Daily} from './models/weatherDataCall';
 import { getCity } from './position';
 import getWeatherData from './getWeatherData';
 
-const renderTempText = (celcius: number, unit: unit) => {
+export const renderTempText = (celcius: number, unit: unit) => {
   if (unit === 'celcius') {
     return `${Math.round(celcius)}°C`
   } else {
